@@ -7,7 +7,7 @@ ARG USER_GID=$USER_UID
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update; \
-  apt-get -y install dialog apt-utils man-db zip unzip sudo tmux vim git iproute2 procps lsb-release build-essential; \
+  apt-get -y install dialog apt-utils man-db zip unzip sudo tmux vim git iproute2 procps lsb-release build-essential autoconf automake m4 bison flex; \
   apt-get -y install libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl; \
   apt-get -y dist-upgrade; \
   groupadd --gid $USER_GID $USERNAME; \
