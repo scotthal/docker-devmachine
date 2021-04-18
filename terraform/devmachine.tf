@@ -18,7 +18,7 @@ resource "google_compute_instance" "dev" {
   name                      = "dev"
   machine_type              = "e2-medium"
   allow_stopping_for_update = true
-  labels = {purpose = "scotthal-dev"}
+  labels                    = { purpose = "scotthal-dev" }
 
   scheduling {
     automatic_restart = false
@@ -33,5 +33,6 @@ resource "google_compute_instance" "dev" {
 
   network_interface {
     network = "default"
+    access_config {}
   }
 }
