@@ -35,4 +35,6 @@ resource "google_compute_instance" "dev" {
     network = "default"
     access_config {}
   }
+
+  metadata_startup_script = "${file("${path.module}/../setup.sh")}"
 }
