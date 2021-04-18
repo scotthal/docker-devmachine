@@ -1,4 +1,4 @@
-FROM debian
+FROM ubuntu:latest
 
 ARG USERNAME=scotthal
 ARG USER_UID=1000
