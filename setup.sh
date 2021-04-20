@@ -1,13 +1,9 @@
 #!/bin/sh
 
 export USERNAME=scotthal
-export USER_UID=1100
-export USER_GID=$USER_UID
 export DEBIAN_FRONTEND='noninteractive'
 
-groupadd --gid $USER_GID $USERNAME; \
-  useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME; \
-  echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME; \
+echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME; \
   chmod 440 /etc/sudoers.d/$USERNAME;
 
 apt-get update; \
