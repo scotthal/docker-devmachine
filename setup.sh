@@ -22,6 +22,8 @@ su $USERNAME -lc "\
   mv .git homedir \
 "
 
+usermod -s /bin/zsh $USERNAME
+
 curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zip > /tmp/Roboto_Mono.zip; \
   su $USERNAME -lc "\
     mkdir .fonts; \
