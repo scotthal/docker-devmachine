@@ -65,7 +65,10 @@ curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.d
   rm -rf /tmp/terraform.zip /tmp/terraform-unz; \
   curl -L https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 > /tmp/minikube; \
   install -o $USERNAME -g $USERNAME /tmp/minikube /home/$USERNAME/bin/minikube; \
-  rm -f /tmp/minikube
+  rm -f /tmp/minikube; \
+  curl -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" > /tmp/kubectl; \
+  install -o $USERNAME -g $USERNAME /tmp/kubectl /home/$USERNAME/bin/kubectl; \
+  rm -f /tmp/kubectl
 
 snap install aws-cli --classic; \
   snap install code --classic; \
