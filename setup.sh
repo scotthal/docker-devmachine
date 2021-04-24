@@ -33,7 +33,7 @@ curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zi
     cp static/RobotoMono-Regular.ttf ../.fonts; \
     cp static/RobotoMono-Medium.ttf ../.fonts; \
     cd ..; \
-    rm -rf roboto-unz
+    rm -rf roboto-unz \
   "
 
 rm -f /tmp/Roboto_Mono.zip
@@ -44,7 +44,7 @@ apt-get -y install lightdm; \
 usermod -a -G docker $USERNAME
 
 mkdir -p /home/$USERNAME/bin; \
-  chown $USRNAME:$USERNAME /home/$USERNAME/bin; \
+  chown $USERNAME:$USERNAME /home/$USERNAME/bin; \
   chmod 0755 /home/$USERNAME/bin
 
 curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb > /tmp/crd.deb; \
@@ -68,6 +68,18 @@ curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.d
 snap install aws-cli --classic; \
   snap install code --classic; \
   snap install intellij-idea-community --classic
+  
+su $USERNAME -lc "\
+    code --install-extension ms-vscode.cpptools; \
+    code --install-extension ms-python.python; \
+    code --install-extension dbaeumer.vscode-eslint; \
+    code --install-extension esbenp.prettier-vscode; \
+    code --install-extension visualstudioexptteam.vscodeintellicode; \
+    code --install-extension ms-azuretools.vscode-docker; \
+    code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools; \
+    code --install-extension rust-lang.rust; \
+    code --install-extension ms-vscode-remote.vscode-remote-extensionpack \
+  "
 
 apt-get autoremove -y ;\
   apt-get clean -y
