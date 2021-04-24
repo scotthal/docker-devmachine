@@ -32,6 +32,8 @@ curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zi
     unzip /tmp/Roboto_Mono.zip; \
     cp static/RobotoMono-Regular.ttf ../.fonts; \
     cp static/RobotoMono-Medium.ttf ../.fonts; \
+    cp static/RobotoMono-SemiBold.ttf ../.fonts; \
+    cp static/RobotoMono-Bold.ttf ../.fonts; \
     cd ..; \
     rm -rf roboto-unz \
   "
