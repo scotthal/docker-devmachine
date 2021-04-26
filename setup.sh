@@ -41,7 +41,7 @@ curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zi
 rm -f /tmp/Roboto_Mono.zip
 
 apt-get -y install lightdm; \
-  apt-get -y install xubuntu-desktop fonts-roboto firefox docker.io; \
+  apt-get -y install xubuntu-desktop fonts-roboto firefox docker.io docker-compose; \
 
 usermod -a -G docker $USERNAME
 
