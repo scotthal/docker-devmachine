@@ -64,7 +64,7 @@ curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.d
   apt-get -y install -f; \
   rm -f /tmp/chrome.deb; \
   update-alternatives --set x-www-browser /usr/bin/google-chrome-stable; \
-  curl -L https://releases.hashicorp.com/terraform/0.15.0/terraform_0.15.0_linux_amd64.zip > /tmp/terraform.zip; \
+  curl -L https://releases.hashicorp.com/terraform/0.15.3/terraform_0.15.3_linux_amd64.zip > /tmp/terraform.zip; \
   mkdir /tmp/terraform-unz; \
   unzip /tmp/terraform.zip -d /tmp/terraform-unz; \
   install -o $USERNAME -g $USERNAME /tmp/terraform-unz/terraform /home/$USERNAME/bin/terraform; \
