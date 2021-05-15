@@ -93,7 +93,8 @@ su $USERNAME -lc "\
     code --install-extension ms-azuretools.vscode-docker; \
     code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools; \
     code --install-extension rust-lang.rust; \
-    code --install-extension ms-vscode-remote.vscode-remote-extensionpack \
+    code --install-extension ms-vscode-remote.vscode-remote-extensionpack; \
+    code --install-extension hashicorp.terraform
   "
 
 apt-get autoremove -y ;\
