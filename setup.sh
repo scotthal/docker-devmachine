@@ -78,7 +78,10 @@ curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.d
   rm -f /tmp/minikube; \
   curl -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" > /tmp/kubectl; \
   install -o $USERNAME -g $USERNAME /tmp/kubectl /home/$USERNAME/bin/kubectl; \
-  rm -f /tmp/kubectl
+  rm -f /tmp/kubectl; \
+  curl -L https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 > /tmp/skaffold; \
+  install -o $USERNAME -g $USERNAME /tmp/skaffold /home/$USERNAME/bin/skaffold; \
+  rm -f /tmp/skaffold
 
 snap install aws-cli --classic; \
   snap install code --classic; \
