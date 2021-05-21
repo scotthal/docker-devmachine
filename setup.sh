@@ -58,7 +58,7 @@ curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.d
   dpkg -i /tmp/crd.deb; \
   apt-get -y install -f; \
   rm -f /tmp/crd.deb; \
-  echo 'exec /usr/bin/xfce4-session' > /etc/chrome-remote-desktop-session; \
+  echo 'dbus-launch startxfce4' > /etc/chrome-remote-desktop-session; \
   curl -L https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /tmp/chrome.deb; \
   dpkg -i /tmp/chrome.deb; \
   apt-get -y install -f; \
