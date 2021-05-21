@@ -85,19 +85,21 @@ curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.d
 
 snap install aws-cli --classic; \
   snap install code --classic; \
-  snap install intellij-idea-community --classic
+  snap install intellij-idea-community --classic; \
+  snap install powershell --classic
   
 su $USERNAME -lc "\
-    code --install-extension ms-vscode.cpptools; \
-    code --install-extension ms-python.python; \
     code --install-extension dbaeumer.vscode-eslint; \
     code --install-extension esbenp.prettier-vscode; \
-    code --install-extension visualstudioexptteam.vscodeintellicode; \
+    code --install-extension hashicorp.terraform; \d
     code --install-extension ms-azuretools.vscode-docker; \
     code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools; \
-    code --install-extension rust-lang.rust; \
+    code --install-extension ms-python.python; \
+    code --install-extension ms-vscode.cpptools; \
+    code --install-extension ms-vscode.powershell; \
     code --install-extension ms-vscode-remote.vscode-remote-extensionpack; \
-    code --install-extension hashicorp.terraform
+    code --install-extension rust-lang.rust; \
+    code --install-extension visualstudioexptteam.vscodeintellicode
   "
 
 apt-get autoremove -y ;\
