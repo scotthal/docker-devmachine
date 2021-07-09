@@ -46,7 +46,8 @@ apt-get -y install lightdm; \
   systemctl service stop lightdm.service; \
   systemctl service disable lightdm-service; \
   systemctl service stop gdm.service; \
-  systemctl service disable gdm.service
+  systemctl service disable gdm.service; \
+  update-alternatives --set x-terminal-emulator /usr/bin/xfce4-terminal.wrapper
 
 usermod -a -G docker $USERNAME
 
@@ -99,7 +100,9 @@ su $USERNAME -lc "\
     code --install-extension ms-vscode.powershell; \
     code --install-extension ms-vscode-remote.vscode-remote-extensionpack; \
     code --install-extension rust-lang.rust; \
-    code --install-extension visualstudioexptteam.vscodeintellicode
+    code --install-extension visualstudioexptteam.vscodeintellicode; \
+    code --install-extension vscjava.vscode-java-pack; \
+    code --install-extension pivotal.vscode-boot-dev-pack
   "
 
 apt-get autoremove -y ;\
