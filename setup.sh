@@ -43,10 +43,10 @@ rm -f /tmp/Roboto_Mono.zip
 apt-get -y install lightdm; \
   apt-get -y install xubuntu-desktop xscreensaver fonts-roboto firefox docker.io docker-compose; \
   apt-get -y remove blueman; \
-  systemctl service stop lightdm.service; \
-  systemctl service disable lightdm-service; \
-  systemctl service stop gdm.service; \
-  systemctl service disable gdm.service; \
+  systemctl stop lightdm.service; \
+  systemctl disable lightdm.service; \
+  systemctl stop gdm.service; \
+  systemctl disable gdm.service; \
   update-alternatives --set x-terminal-emulator /usr/bin/xfce4-terminal.wrapper
 
 usermod -a -G docker $USERNAME
