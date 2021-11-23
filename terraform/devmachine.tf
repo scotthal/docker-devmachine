@@ -16,7 +16,7 @@ provider "google" {
 
 resource "google_compute_instance" "dev" {
   name                      = "dev"
-  machine_type              = "e2-medium"
+  machine_type              = "e2-standard-2"
   allow_stopping_for_update = true
   labels                    = { purpose = "scotthal-dev" }
 
@@ -33,12 +33,33 @@ resource "google_compute_instance" "dev" {
   }
 
   network_interface {
-    network = "default"
+    network = google_compute_network.dev_network.self_link
     access_config {}
   }
 
   metadata = {
-    ssh-keys = "scotthal:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCiNxqnxBCK0ElR0ac0RcTW6wbXB58/hUqyDVGxNEN4xj3jkCLPVY1IhdS8uP7IEN1uOJ8IR/Wj+8R+ikxvF2nKEsre1UX6ZC5P73HdpP9DsXxFyRlk0F4E7P/P25j6HpjmlRP0E66sJ8EOvySMcdkwOEQMxsGducVWhAKIxvO7NhcczpfYiyqm3Rg5FAzxu+ANCjzAn/GVpPiijyN+kEibNNeHMcACwBKTuRAHuXGNOSTTlGAdbAk2iDKE7zYi8CoaMbr7UPInHwIIYyX+c1dw4PK+CgMnvVWmTrdtaSTMrhQ8oJ5etQqSrDe4ifOYi5fD/CfwoaTd+9+kDatLXhvLI/grl2bdiabpQad54Z6vqoZoZHAVCXk1k8ARKN9rVOKFO+twFnIgn4DlRDLAsIM83qe1+F5bExbQrTE9zTnUn+KjhhF4xorjv/OwJtqeIt/CJLW0vaRPvSzBrjjRMcpHPK5BR6AtUn9f6KuKGrpLPagtJUZ27BBPCDo01QfpDsefRXeW8YBwzNx4VLsqJGxB3zpOXpBfMZ80UU/4X810Vn2J52d20z/xKx1WqoeDuRDNt8mZVAUiA0XjBbJiHEN0Je9tToYQlcUKccYQ0/ovOHdlbKKsIn06YoxqhPZMVr1Xxe/aoBbCPZM30nqodesA+Df4esFnm/GUdzKfcIY6MQ== scotthal"
+    ssh-keys = "scotthal:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/1WmB/5c3gd/3R1gAArZb8rdGKIXH+6K3YCShG1gilhc8yLaaBzVCf1ny7LdCf33Rs2QnSGsDEDpN/lJ/TLxA909WabvUgrrkeYwOkYrv++wUOsviWWQdHYFElc8p9MToLWz/Av2g97mqMaH69CD9QJXGstOYDm1QAbPy17WGYfuCRgRJVqyWy28vi84Ysg1UqPW/E+HiWCVIO2R4y3xfNKM8b+L6DAM0XcKBj2T+fJsBFK9e8UyMGpM/XVPoPS4ZPyjoYex4hYimD0k3xz7LJRgHz6mRRKyaAoIxVi6pxVtWEOeQtIQwnBh54hK1ORk9NtDA8FyjrQloZRNriLnCrhWj5aSl7jAI9aI4Y/IR+rU63kYIFGVVcOeVRR25qeSYQmlCHMoA8pTtzN5g3DNH2RmHXUTMkHg+fCnDZ3L1R5CbPgokvLwvBAm6qkWYEzzcl/w587bN7JAx5+uvky1HnEiDVktzL7A0sJF9X3AD5yrkZnpkqF6Gs95jqaXDn0MCQ+Ub5vAWElqHY9LTHRynFa+KBv9IC2uWAfm3RNRmekJfLWRJqQ9IZT8aqvV/n43PcW0jaLLPvXKFBjXYM50909Mi3I4GgcWmJQp9BNuQ8JdveuNDdNnevAHrtQdrjuQIOPsaNLrJbIAxtnJf1DPq19quMJg8R1xSwPn3l6sYvQ== scotthal@cs-25160505235-default-boost-cc88k"
   }
   metadata_startup_script = file("${path.module}/../setup.sh")
+}
+
+resource "google_compute_network" "dev_network" {
+  name                    = "dev-network"
+  auto_create_subnetworks = "true"
+}
+
+resource "google_compute_firewall" "dev_firewall" {
+  name    = "dev-firewall"
+  network = google_compute_network.dev_network.self_link
+
+  allow {
+    protocol = "icmp"
+  }
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22", "8000-8999"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
 }
