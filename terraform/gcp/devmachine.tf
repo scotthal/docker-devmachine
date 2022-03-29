@@ -40,7 +40,7 @@ resource "google_compute_instance" "dev" {
   metadata = {
     ssh-keys = "scotthal:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC/1WmB/5c3gd/3R1gAArZb8rdGKIXH+6K3YCShG1gilhc8yLaaBzVCf1ny7LdCf33Rs2QnSGsDEDpN/lJ/TLxA909WabvUgrrkeYwOkYrv++wUOsviWWQdHYFElc8p9MToLWz/Av2g97mqMaH69CD9QJXGstOYDm1QAbPy17WGYfuCRgRJVqyWy28vi84Ysg1UqPW/E+HiWCVIO2R4y3xfNKM8b+L6DAM0XcKBj2T+fJsBFK9e8UyMGpM/XVPoPS4ZPyjoYex4hYimD0k3xz7LJRgHz6mRRKyaAoIxVi6pxVtWEOeQtIQwnBh54hK1ORk9NtDA8FyjrQloZRNriLnCrhWj5aSl7jAI9aI4Y/IR+rU63kYIFGVVcOeVRR25qeSYQmlCHMoA8pTtzN5g3DNH2RmHXUTMkHg+fCnDZ3L1R5CbPgokvLwvBAm6qkWYEzzcl/w587bN7JAx5+uvky1HnEiDVktzL7A0sJF9X3AD5yrkZnpkqF6Gs95jqaXDn0MCQ+Ub5vAWElqHY9LTHRynFa+KBv9IC2uWAfm3RNRmekJfLWRJqQ9IZT8aqvV/n43PcW0jaLLPvXKFBjXYM50909Mi3I4GgcWmJQp9BNuQ8JdveuNDdNnevAHrtQdrjuQIOPsaNLrJbIAxtnJf1DPq19quMJg8R1xSwPn3l6sYvQ== scotthal@cs-25160505235-default-boost-cc88k"
   }
-  metadata_startup_script = file("${path.module}/../setup.sh")
+  metadata_startup_script = file("${path.module}/../../setup.sh")
 }
 
 resource "google_compute_network" "dev_network" {
