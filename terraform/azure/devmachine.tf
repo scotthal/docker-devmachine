@@ -48,3 +48,25 @@ resource "azurerm_network_interface" "dev" {
     public_ip_address_id          = azurerm_public_ip.dev.id
   }
 }
+
+resource "azurerm_network_security_group" "dev" {
+  name                = "dev-machine-network-security-group"
+  resource_group_name = azurerm_resource_group.dev.name
+  location            = azurerm_resource_group.dev.location
+  security_rule {
+    name                       = "dev-machine-security-rule-tcp"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_address_prefix      = "*"
+    source_port_range          = "*"
+    destination_address_prefix = "*"
+    destination_port_ranges    = ["22", "80", "443", "8000-8999"]
+  }
+}
+
+resource "azurerm_network_interface_security_group_association" "dev" {
+  network_interface_id = azurerm_network_interface.dev.id
+  network_security_group_id = azurerm_network_security_group.dev.id
+}
