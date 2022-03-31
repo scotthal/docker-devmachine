@@ -67,6 +67,30 @@ resource "azurerm_network_security_group" "dev" {
 }
 
 resource "azurerm_network_interface_security_group_association" "dev" {
-  network_interface_id = azurerm_network_interface.dev.id
+  network_interface_id      = azurerm_network_interface.dev.id
   network_security_group_id = azurerm_network_security_group.dev.id
+}
+
+resource "azurerm_linux_virtual_machine" "dev" {
+  name                  = "dev"
+  resource_group_name   = azurerm_resource_group.dev.name
+  location              = azurerm_resource_group.dev.location
+  size                  = "Standard_D2as_v4"
+  network_interface_ids = [azurerm_network_interface.dev.id]
+  os_disk {
+    name                 = "dev-machine-disk"
+    caching              = "ReadWrite"
+    storage_account_type = "Premium_LRS"
+  }
+  source_image_reference {
+    publisher = "canonical"
+    offer     = "0001-com-ubuntu-server-focal"
+    sku       = "20_04-lts-gen2"
+    version   = "latest"
+  }
+  admin_username = "scotthal"
+  admin_ssh_key {
+    username   = "scotthal"
+    public_key = file("~/.ssh/id_rsa.pub")
+  }
 }
