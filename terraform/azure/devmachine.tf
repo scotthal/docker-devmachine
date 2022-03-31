@@ -29,3 +29,14 @@ resource "azurerm_subnet" "dev" {
   virtual_network_name = azurerm_virtual_network.dev.name
   address_prefixes     = ["10.101.0.0/24"]
 }
+
+resource "azurerm_network_interface" "dev" {
+  name                = "dev-machine-network-interface"
+  resource_group_name = azurerm_resource_group.dev.name
+  location            = azurerm_resource_group.dev.location
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.dev.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
