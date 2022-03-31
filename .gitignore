@@ -1,4 +1,5 @@
 credential.json
+service-principal.*
 terraform.tfstate
 terraform.tfstate.backup
 .terraform
