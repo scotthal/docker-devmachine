@@ -1,3 +1,4 @@
+*accessKeys.csv
 credential.json
 service-principal.*
 terraform.tfstate
