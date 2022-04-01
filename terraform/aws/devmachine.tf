@@ -31,9 +31,9 @@ resource "aws_route_table" "dev" {
 }
 
 resource "aws_route" "dev_default_route" {
-  route_table_id = aws_route_table.dev.id
+  route_table_id         = aws_route_table.dev.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id = aws_internet_gateway.dev.id
+  gateway_id             = aws_internet_gateway.dev.id
 }
 
 resource "aws_route_table_association" "dev_subnet_association" {
@@ -41,7 +41,3 @@ resource "aws_route_table_association" "dev_subnet_association" {
   subnet_id      = aws_subnet.dev.id
 }
 
-#resource "aws_route_table_association" "dev_internet_gateway_association" {
-#  route_table_id = aws_route_table.dev.id
-#  gateway_id     = aws_internet_gateway.dev.id
-#}
