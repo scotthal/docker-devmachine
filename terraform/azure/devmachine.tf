@@ -4,12 +4,18 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.0.2"
     }
+    cloudinit = {
+      source  = "hashicorp/cloudinit"
+      version = "2.2.0"
+    }
   }
 }
 
 provider "azurerm" {
   features {}
 }
+
+provider "cloudinit" {}
 
 resource "azurerm_resource_group" "dev" {
   name     = "dev-machine-resources"
@@ -71,6 +77,14 @@ resource "azurerm_network_interface_security_group_association" "dev" {
   network_security_group_id = azurerm_network_security_group.dev.id
 }
 
+data "cloudinit_config" "dev" {
+  part {
+    content_type = "text/x-shellscript"
+    filename     = "setup.sh"
+    content      = file("${path.module}/../../setup.sh")
+  }
+}
+
 resource "azurerm_linux_virtual_machine" "dev" {
   name                  = "dev"
   resource_group_name   = azurerm_resource_group.dev.name
@@ -88,6 +102,7 @@ resource "azurerm_linux_virtual_machine" "dev" {
     sku       = "20_04-lts-gen2"
     version   = "latest"
   }
+  custom_data    = data.cloudinit_config.dev.rendered
   admin_username = "scotthal"
   admin_ssh_key {
     username   = "scotthal"
