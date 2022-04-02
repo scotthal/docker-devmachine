@@ -4,10 +4,15 @@ terraform {
       source  = "hashicorp/aws"
       version = "4.8.0"
     }
+    cloudinit = {
+      source  = "hashicorp/cloudinit"
+      version = "2.2.0"
+    }
   }
 }
 
 provider "aws" {}
+provider "cloudinit" {}
 
 resource "aws_vpc" "dev" {
   cidr_block = "10.101.0.0/16"
@@ -86,6 +91,14 @@ resource "aws_key_pair" "dev" {
   public_key = file("~/.ssh/id_rsa.pub")
 }
 
+data "cloudinit_config" "dev" {
+  part {
+    content_type = "text/x-shellscript"
+    filename     = "setup.sh"
+    content      = file("${path.module}/../../setup.sh")
+  }
+}
+
 resource "aws_launch_configuration" "dev" {
   name                        = "dev"
   image_id                    = "ami-005775ff06aa22974"
@@ -94,6 +107,7 @@ resource "aws_launch_configuration" "dev" {
   associate_public_ip_address = true
   security_groups             = [aws_security_group.dev.id]
   key_name                    = aws_key_pair.dev.key_name
+  user_data_base64            = data.cloudinit_config.dev.rendered
   root_block_device {
     volume_type = "gp3"
     volume_size = 30
