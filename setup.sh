@@ -5,8 +5,8 @@ export USER_UID=1100
 export USER_GID=$USER_UID
 export DEBIAN_FRONTEND='noninteractive'
 
-id -g $USERNAME &> /dev/null || groupadd --gid $USER_GID $USERNAME
-id -u $USERNAME &> /dev/null || useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME
+groupadd --gid $USER_GID $USERNAME
+useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME
 echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME; \
   chmod 440 /etc/sudoers.d/$USERNAME;
 
