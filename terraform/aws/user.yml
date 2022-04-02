@@ -1,0 +1,9 @@
+#cloud-config
+groups:
+  - scotthal
+users:
+  - name: scotthal
+    gecos: Scott Hallock
+    primary_group: scotthal
+    ssh_authorized_keys:
+      - ${file("~/.ssh/id_rsa.pub")}

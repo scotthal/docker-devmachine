@@ -93,6 +93,10 @@ resource "aws_key_pair" "dev" {
 
 data "cloudinit_config" "dev" {
   part {
+    content_type = "text/cloud-config"
+    content      = templatefile("${path.module}/user.yml")
+  }
+  part {
     content_type = "text/x-shellscript"
     filename     = "setup.sh"
     content      = file("${path.module}/../../setup.sh")
