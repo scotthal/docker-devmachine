@@ -94,7 +94,7 @@ resource "aws_key_pair" "dev" {
 data "cloudinit_config" "dev" {
   part {
     content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/user.yml")
+    content      = templatefile("${path.module}/user.yml", {authorized_keys = file("~/.ssh/id_rsa.pub")})
   }
   part {
     content_type = "text/x-shellscript"
