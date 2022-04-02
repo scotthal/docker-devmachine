@@ -80,3 +80,31 @@ resource "aws_security_group" "dev" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_key_pair" "dev" {
+  key_name   = "dev-key"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
+
+resource "aws_launch_configuration" "dev" {
+  name                        = "dev"
+  image_id                    = "ami-005775ff06aa22974"
+  instance_type               = "m5a.large"
+  spot_price                  = "0.05"
+  associate_public_ip_address = true
+  security_groups             = [aws_security_group.dev.id]
+  key_name                    = aws_key_pair.dev.key_name
+  root_block_device {
+    volume_type = "gp3"
+    volume_size = 30
+  }
+}
+
+resource "aws_autoscaling_group" "dev" {
+  name                 = "dev-asg"
+  max_size             = 1
+  min_size             = 1
+  desired_capacity     = 1
+  launch_configuration = aws_launch_configuration.dev.id
+  vpc_zone_identifier  = [aws_subnet.dev.id]
+}
