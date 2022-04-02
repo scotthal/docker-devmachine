@@ -12,7 +12,7 @@ echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME; \
 
 apt-get update; \
   apt-get -y dist-upgrade; \
-  apt-get -y install locales dialog apt-utils man-db bc zsh fish zip unzip sudo tmux vim emacs-nox git iproute2 procps lsb-release build-essential autoconf automake m4 bison flex gettext; \
+  apt-get -y install locales dialog apt-utils man-db bc zsh fish zip unzip sudo tmux vim emacs-nox git iproute2 procps lsb-release build-essential autoconf automake m4 bison flex gettext jq; \
   apt-get -y install libssl-dev libcurl4-openssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev libelf-dev xz-utils tk-dev libffi-dev liblzma-dev; \
   apt-get -y install libgmp-dev; \
   echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen; \
