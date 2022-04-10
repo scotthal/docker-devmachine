@@ -45,7 +45,7 @@ curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zi
 rm -f /tmp/Roboto_Mono.zip
 
 apt-get -y install lightdm; \
-  apt-get -y install xubuntu-desktop xscreensaver fonts-roboto firefox docker.io docker-compose; \
+  apt-get -y install xubuntu-desktop xscreensaver fonts-roboto flatpak docker.io docker-compose; \
   apt-get -y remove blueman; \
   systemctl stop lightdm.service; \
   systemctl disable lightdm.service; \
@@ -109,6 +109,9 @@ su $USERNAME -lc "\
     code --install-extension visualstudioexptteam.vscodeintellicode; \
     code --install-extension vscjava.vscode-java-pack
   "
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub/flatpakrepo; \
+    flatpak install --noninteractive -y flathub org.mozilla.firefox
 
 apt-get autoremove -y ;\
   apt-get clean -y
