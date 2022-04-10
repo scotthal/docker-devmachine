@@ -45,7 +45,7 @@ curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zi
 rm -f /tmp/Roboto_Mono.zip
 
 apt-get -y install lightdm; \
-  apt-get -y install xubuntu-desktop xscreensaver fonts-roboto flatpak docker.io docker-compose; \
+  apt-get -y install xubuntu-desktop xscreensaver fonts-roboto fonts-croscore fonts-noto flatpak docker.io docker-compose; \
   apt-get -y remove blueman; \
   systemctl stop lightdm.service; \
   systemctl disable lightdm.service; \
