@@ -110,7 +110,7 @@ su $USERNAME -lc "\
     code --install-extension vscjava.vscode-java-pack
   "
 
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub/flatpakrepo; \
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo; \
     flatpak install --noninteractive -y flathub org.mozilla.firefox
 
 apt-get autoremove -y ;\
