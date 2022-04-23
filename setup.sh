@@ -45,7 +45,7 @@ curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zi
 rm -f /tmp/Roboto_Mono.zip
 
 apt-get -y install lightdm; \
-  apt-get -y install xubuntu-desktop xscreensaver fonts-roboto fonts-croscore fonts-noto firefox docker.io docker-compose; \
+  apt-get -y install xubuntu-desktop xscreensaver fonts-roboto fonts-croscore fonts-noto flatpak docker.io docker-compose; \
   apt-get -y remove blueman; \
   systemctl stop lightdm.service; \
   systemctl disable lightdm.service; \
@@ -69,6 +69,7 @@ curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.d
   apt-get -y install -f; \
   rm -f /tmp/chrome.deb; \
   update-alternatives --set x-www-browser /usr/bin/google-chrome-stable; \
+  curl -L 'https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US' | bzip2 -dc | tar -C /opt -xf -; \
   curl -L https://releases.hashicorp.com/terraform/1.1.7/terraform_1.1.7_linux_amd64.zip > /tmp/terraform.zip; \
   mkdir /tmp/terraform-unz; \
   unzip /tmp/terraform.zip -d /tmp/terraform-unz; \
@@ -87,6 +88,16 @@ curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.d
   curl -L https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 > /tmp/skaffold; \
   install -o $USERNAME -g $USERNAME /tmp/skaffold /home/$USERNAME/bin/skaffold; \
   rm -f /tmp/skaffold
+
+cat <<EOF > /usr/share/applications/firefox.desktop
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Firefox
+Exec=/opt/firefox/firefox
+Icon=/opt/firefox/browser/chrome/icons/default/default64.png
+Categories=Network
+EOF
 
 snap install aws-cli --classic; \
   snap install code --classic; \
@@ -109,6 +120,8 @@ su $USERNAME -lc "\
     code --install-extension visualstudioexptteam.vscodeintellicode; \
     code --install-extension vscjava.vscode-java-pack
   "
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 apt-get autoremove -y ;\
   apt-get clean -y
