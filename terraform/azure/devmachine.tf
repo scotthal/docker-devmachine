@@ -90,6 +90,9 @@ resource "azurerm_linux_virtual_machine" "dev" {
   resource_group_name   = azurerm_resource_group.dev.name
   location              = azurerm_resource_group.dev.location
   size                  = "Standard_D2as_v4"
+  priority              = "Spot"
+  max_bid_price         = 0.05
+  eviction_policy       = "Deallocate"
   network_interface_ids = [azurerm_network_interface.dev.id]
   os_disk {
     name                 = "dev-machine-disk"
