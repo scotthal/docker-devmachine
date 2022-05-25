@@ -79,6 +79,9 @@ curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.d
   curl -L https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz | gzip -dc | tar -C /tmp/helm-unz -xf -; \
   install -o $USERNAME -g $USERNAME /tmp/helm-unz/linux-amd64/helm /home/$USERNAME/bin/helm; \
   rm -rf /tmp/helm-unz; \
+  curl -L https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64 > /tmp/kind; \
+  install -o $USERNAME -g $USERNAME /tmp/kind /home/$USERNAME/kind; \
+  rm -f /tmp/kind; \
   curl -L https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 > /tmp/minikube; \
   install -o $USERNAME -g $USERNAME /tmp/minikube /home/$USERNAME/bin/minikube; \
   rm -f /tmp/minikube; \
