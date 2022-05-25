@@ -70,7 +70,7 @@ curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.d
   rm -f /tmp/chrome.deb; \
   update-alternatives --set x-www-browser /usr/bin/google-chrome-stable; \
   curl -L 'https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US' | bzip2 -dc | tar -C /opt -xf -; \
-  curl -L https://releases.hashicorp.com/terraform/1.1.7/terraform_1.1.7_linux_amd64.zip > /tmp/terraform.zip; \
+  curl -L https://releases.hashicorp.com/terraform/1.2.1/terraform_1.2.1_linux_amd64.zip > /tmp/terraform.zip; \
   mkdir /tmp/terraform-unz; \
   unzip /tmp/terraform.zip -d /tmp/terraform-unz; \
   install -o $USERNAME -g $USERNAME /tmp/terraform-unz/terraform /home/$USERNAME/bin/terraform; \
