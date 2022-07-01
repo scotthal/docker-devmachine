@@ -96,16 +96,16 @@ data "cloudinit_config" "dev" {
     content_type = "text/cloud-config"
     content      = templatefile("${path.module}/user.yml", {authorized_keys = file("~/.ssh/id_rsa.pub")})
   }
-  part {
-    content_type = "text/x-shellscript"
-    filename     = "setup.sh"
-    content      = file("${path.module}/../../setup.sh")
-  }
+#  part {
+#    content_type = "text/x-shellscript"
+#    filename     = "setup.sh"
+#    content      = file("${path.module}/../../setup.sh")
+#  }
 }
 
 resource "aws_launch_configuration" "dev" {
   name                        = "dev"
-  image_id                    = "ami-0ee8244746ec5d6d4"
+  image_id                    = "ami-06395ea692acadd13"
   instance_type               = "m5a.large"
   spot_price                  = "0.05"
   associate_public_ip_address = true
