@@ -25,6 +25,7 @@ RUN apt-get update; \
 
 ENV DEBIAN_FRONTEND=
 
+WORKDIR /home/${USERNAME}
 USER ${USERNAME}
 
 CMD ["/bin/zsh"]
