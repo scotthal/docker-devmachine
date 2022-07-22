@@ -105,7 +105,7 @@ data "cloudinit_config" "dev" {
 
 resource "aws_launch_configuration" "dev" {
   name                        = "dev"
-  image_id                    = "ami-06395ea692acadd13"
+  image_id                    = "ami-06b4a8b5d746a24a7"
   instance_type               = "m5a.large"
   spot_price                  = "0.05"
   associate_public_ip_address = true
