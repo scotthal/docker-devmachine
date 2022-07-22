@@ -113,6 +113,7 @@ su $USERNAME -lc "\
     code --install-extension dbaeumer.vscode-eslint; \
     code --install-extension editorconfig.editorconfig; \
     code --install-extension esbenp.prettier-vscode; \
+    code --install-extension github.github-vscode-theme; \
     code --install-extension hashicorp.terraform; \d
     code --install-extension ms-azuretools.vscode-docker; \
     code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools; \
