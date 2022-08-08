@@ -12,7 +12,7 @@ echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME; \
 
 apt-get update; \
   apt-get -y dist-upgrade; \
-  apt-get -y install locales less dialog apt-utils man-db bc zsh fish zip unzip sudo tmux bat vim emacs-nox git iproute2 procps lsb-release libnss3-tools curl httpie jq sqlite3; \
+  apt-get -y install locales less dialog apt-utils man-db bc zsh fish zip unzip sudo tmux bat vim emacs-nox git iproute2 procps lsb-release libnss3-tools curl httpie jq sqlite3 docker.io docker-compose; \
   apt-get -y install build-essential autoconf automake cmake m4 bison flex gettext; \
   apt-get -y install libssl-dev libcurl4-openssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev libelf-dev xz-utils tk-dev libffi-dev liblzma-dev; \
   apt-get -y install libgmp-dev; \
@@ -28,50 +28,13 @@ su $USERNAME -lc "\
 "
 
 usermod -s /bin/zsh $USERNAME
-
-curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zip > /tmp/Roboto_Mono.zip; \
-  su $USERNAME -lc "\
-    mkdir .fonts; \
-    mkdir roboto-unz; \
-    cd roboto-unz; \
-    unzip /tmp/Roboto_Mono.zip; \
-    cp static/RobotoMono-Regular.ttf ../.fonts; \
-    cp static/RobotoMono-Medium.ttf ../.fonts; \
-    cp static/RobotoMono-SemiBold.ttf ../.fonts; \
-    cp static/RobotoMono-Bold.ttf ../.fonts; \
-    cd ..; \
-    rm -rf roboto-unz \
-  "
-
-rm -f /tmp/Roboto_Mono.zip
-
-apt-get -y install lightdm; \
-  apt-get -y install xubuntu-desktop xscreensaver fonts-roboto fonts-croscore fonts-noto flatpak docker.io docker-compose; \
-  apt-get -y remove blueman; \
-  systemctl stop lightdm.service; \
-  systemctl disable lightdm.service; \
-  systemctl stop gdm.service; \
-  systemctl disable gdm.service; \
-  update-alternatives --set x-terminal-emulator /usr/bin/xfce4-terminal.wrapper
-
 usermod -a -G docker $USERNAME
 
 mkdir -p /home/$USERNAME/bin; \
   chown $USERNAME:$USERNAME /home/$USERNAME/bin; \
   chmod 0755 /home/$USERNAME/bin
 
-curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb > /tmp/crd.deb; \
-  dpkg -i /tmp/crd.deb; \
-  apt-get -y install -f; \
-  rm -f /tmp/crd.deb; \
-  echo 'dbus-launch startxfce4' > /etc/chrome-remote-desktop-session; \
-  curl -L https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /tmp/chrome.deb; \
-  dpkg -i /tmp/chrome.deb; \
-  apt-get -y install -f; \
-  rm -f /tmp/chrome.deb; \
-  update-alternatives --set x-www-browser /usr/bin/google-chrome-stable; \
-  curl -L 'https://download.mozilla.org/?product=firefox-devedition-latest&os=linux64&lang=en-US' | bzip2 -dc | tar -C /opt -xf -; \
-  curl -L https://releases.hashicorp.com/terraform/1.2.1/terraform_1.2.1_linux_amd64.zip > /tmp/terraform.zip; \
+curl -L https://releases.hashicorp.com/terraform/1.2.6/terraform_1.2.6_linux_amd64.zip > /tmp/terraform.zip; \
   mkdir /tmp/terraform-unz; \
   unzip /tmp/terraform.zip -d /tmp/terraform-unz; \
   install -o $USERNAME -g $USERNAME /tmp/terraform-unz/terraform /home/$USERNAME/bin/terraform; \
@@ -93,6 +56,48 @@ curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.d
   install -o $USERNAME -g $USERNAME /tmp/skaffold /home/$USERNAME/bin/skaffold; \
   rm -f /tmp/skaffold
 
+snap install aws-cli --classic; \
+  snap install google-cloud-sdk --classic; \
+  snap install powershell --classic
+
+
+curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zip > /tmp/Roboto_Mono.zip; \
+  su $USERNAME -lc "\
+    mkdir .fonts; \
+    mkdir roboto-unz; \
+    cd roboto-unz; \
+    unzip /tmp/Roboto_Mono.zip; \
+    cp static/RobotoMono-Regular.ttf ../.fonts; \
+    cp static/RobotoMono-Medium.ttf ../.fonts; \
+    cp static/RobotoMono-SemiBold.ttf ../.fonts; \
+    cp static/RobotoMono-Bold.ttf ../.fonts; \
+    cd ..; \
+    rm -rf roboto-unz \
+  "
+
+rm -f /tmp/Roboto_Mono.zip
+
+apt-get -y install lightdm; \
+  apt-get -y install xubuntu-desktop xscreensaver fonts-roboto fonts-croscore fonts-noto flatpak; \
+  apt-get -y remove blueman; \
+  systemctl stop lightdm.service; \
+  systemctl disable lightdm.service; \
+  systemctl stop gdm.service; \
+  systemctl disable gdm.service; \
+  update-alternatives --set x-terminal-emulator /usr/bin/xfce4-terminal.wrapper
+
+curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb > /tmp/crd.deb; \
+  dpkg -i /tmp/crd.deb; \
+  apt-get -y install -f; \
+  rm -f /tmp/crd.deb; \
+  echo 'dbus-launch startxfce4' > /etc/chrome-remote-desktop-session; \
+  curl -L https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /tmp/chrome.deb; \
+  dpkg -i /tmp/chrome.deb; \
+  apt-get -y install -f; \
+  rm -f /tmp/chrome.deb; \
+  update-alternatives --set x-www-browser /usr/bin/google-chrome-stable; \
+  curl -L 'https://download.mozilla.org/?product=firefox-devedition-latest&os=linux64&lang=en-US' | bzip2 -dc | tar -C /opt -xf -
+
 cat <<EOF > /usr/share/applications/firefox.desktop
 [Desktop Entry]
 Version=1.0
@@ -103,11 +108,8 @@ Icon=/opt/firefox/browser/chrome/icons/default/default64.png
 Categories=Network
 EOF
 
-snap install aws-cli --classic; \
-  snap install google-cloud-sdk --classic; \
-  snap install code --classic; \
-  snap install intellij-idea-community --classic; \
-  snap install powershell --classic
+snap install code --classic; \
+  snap install intellij-idea-community --classic
   
 su $USERNAME -lc "\
     code --install-extension dbaeumer.vscode-eslint; \
