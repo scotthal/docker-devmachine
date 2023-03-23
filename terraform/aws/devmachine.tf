@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "4.8.0"
+      version = "4.59.0"
     }
     cloudinit = {
       source  = "hashicorp/cloudinit"
@@ -21,7 +21,7 @@ resource "aws_vpc" "dev" {
 resource "aws_subnet" "dev" {
   vpc_id            = aws_vpc.dev.id
   cidr_block        = "10.101.0.0/24"
-  availability_zone = "us-west-2a"
+  availability_zone = "us-east-2a"
 }
 
 resource "aws_internet_gateway" "dev" {}
@@ -94,35 +94,28 @@ resource "aws_key_pair" "dev" {
 data "cloudinit_config" "dev" {
   part {
     content_type = "text/cloud-config"
-    content      = templatefile("${path.module}/user.yml", {authorized_keys = file("~/.ssh/id_rsa.pub")})
+    content      = templatefile("${path.module}/user.yml", { authorized_keys = file("~/.ssh/id_rsa.pub") })
   }
-#  part {
-#    content_type = "text/x-shellscript"
-#    filename     = "setup.sh"
-#    content      = file("${path.module}/../../setup.sh")
-#  }
+  part {
+    content_type = "text/x-shellscript"
+    filename     = "setup.sh"
+    content      = file("${path.module}/../../setup.sh")
+  }
 }
 
-resource "aws_launch_configuration" "dev" {
-  name                        = "dev"
-  image_id                    = "ami-01f2fe255a292e4aa"
-  instance_type               = "m5a.large"
+resource "aws_spot_instance_request" "dev" {
   spot_price                  = "0.05"
+  wait_for_fulfillment        = true
+  ami                         = "ami-0eae98da11e02bbe2"
+  instance_type               = "m5a.large"
+  subnet_id                   = aws_subnet.dev.id
   associate_public_ip_address = true
-  security_groups             = [aws_security_group.dev.id]
-  key_name                    = aws_key_pair.dev.key_name
-  user_data_base64            = data.cloudinit_config.dev.rendered
+  vpc_security_group_ids      = [aws_security_group.dev.id]
   root_block_device {
     volume_type = "gp3"
     volume_size = 30
   }
+  key_name  = aws_key_pair.dev.key_name
+  user_data = data.cloudinit_config.dev.rendered
 }
 
-resource "aws_autoscaling_group" "dev" {
-  name                 = "dev-asg"
-  max_size             = 1
-  min_size             = 1
-  desired_capacity     = 1
-  launch_configuration = aws_launch_configuration.dev.id
-  vpc_zone_identifier  = [aws_subnet.dev.id]
-}
