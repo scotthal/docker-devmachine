@@ -2,7 +2,7 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "4.15.0"
+      version = "4.58.0"
     }
   }
 }
@@ -62,4 +62,9 @@ resource "google_compute_firewall" "dev_firewall" {
   }
 
   source_ranges = ["0.0.0.0/0"]
+}
+
+output "instance_public_ip_address" {
+  description = "The public IP address of the instance"
+  value       = google_compute_instance.dev.network_interface.0.access_config.0.nat_ip
 }
