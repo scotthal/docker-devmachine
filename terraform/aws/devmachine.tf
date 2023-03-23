@@ -119,3 +119,7 @@ resource "aws_spot_instance_request" "dev" {
   user_data = data.cloudinit_config.dev.rendered
 }
 
+output "spot_instance_public_ip_address" {
+  description = "Public IP address of the spot instance"
+  value       = aws_spot_instance_request.dev.public_ip
+}
