@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "3.0.2"
+      version = "3.48.0"
     }
     cloudinit = {
       source  = "hashicorp/cloudinit"
@@ -111,4 +111,14 @@ resource "azurerm_linux_virtual_machine" "dev" {
     username   = "scotthal"
     public_key = file("~/.ssh/id_rsa.pub")
   }
+}
+
+data "azurerm_public_ip" "dev" {
+  name                = azurerm_public_ip.dev.name
+  resource_group_name = azurerm_resource_group.dev.name
+}
+
+output "instance_public_ip_address" {
+  description = "The public IP address of the instance"
+  value       = data.azurerm_public_ip.dev.ip_address
 }
