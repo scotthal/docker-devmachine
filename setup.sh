@@ -34,7 +34,7 @@ mkdir -p /home/$USERNAME/bin; \
   chown $USERNAME:$USERNAME /home/$USERNAME/bin; \
   chmod 0755 /home/$USERNAME/bin
 
-curl -L https://releases.hashicorp.com/terraform/1.3.9/terraform_1.3.9_linux_amd64.zip > /tmp/terraform.zip; \
+curl -L https://releases.hashicorp.com/terraform/1.4.6/terraform_1.4.6_linux_amd64.zip > /tmp/terraform.zip; \
   mkdir /tmp/terraform-unz; \
   unzip /tmp/terraform.zip -d /tmp/terraform-unz; \
   install -o $USERNAME -g $USERNAME /tmp/terraform-unz/terraform /home/$USERNAME/bin/terraform; \
