@@ -5,3 +5,4 @@ service-principal.*
 terraform.tfstate
 terraform.tfstate.backup
 .terraform
+.terraform.tfstate.lock.info
