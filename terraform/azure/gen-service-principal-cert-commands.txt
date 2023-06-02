@@ -1,4 +1,4 @@
 openssl req -newkey rsa:4096 -nodes -keyout "service-principal.key" -out "service-principal.csr"
 openssl x509 -signkey "service-principal.key" -in "service-principal.csr" -req -days 365 -out "service-principal.crt"
-openssl pkcs12 -export -out "service-principal.pfx" -inkey "service-principal.key" -in "service-principal.crt"
+openssl pkcs12 -export -out "service-principal.pfx" -inkey "service-principal.key" -in "service-principal.crt" -password pass:'put-password-here'
 
