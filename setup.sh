@@ -126,7 +126,7 @@ su $USERNAME -lc "\
     code --install-extension ms-vscode-remote.vscode-remote-extensionpack; \
     code --install-extension pivotal.vscode-boot-dev-pack; \
     code --install-extension rebornix.ruby; \
-    code --install-extension rust-lang.rust; \
+    code --install-extension rust-lang.rust-analyzer; \
     code --install-extension visualstudioexptteam.vscodeintellicode; \
     code --install-extension vscjava.vscode-java-pack
   "
