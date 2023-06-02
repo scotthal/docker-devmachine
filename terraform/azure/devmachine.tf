@@ -101,8 +101,8 @@ resource "azurerm_linux_virtual_machine" "dev" {
   }
   source_image_reference {
     publisher = "canonical"
-    offer     = "0001-com-ubuntu-server-kinetic"
-    sku       = "22_10-gen2"
+    offer     = "0001-com-ubuntu-server-lunar"
+    sku       = "23_04-gen2"
     version   = "latest"
   }
   custom_data    = data.cloudinit_config.dev.rendered

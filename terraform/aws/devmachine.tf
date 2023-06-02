@@ -106,7 +106,7 @@ data "cloudinit_config" "dev" {
 resource "aws_spot_instance_request" "dev" {
   spot_price                  = "0.05"
   wait_for_fulfillment        = true
-  ami                         = "ami-0eae98da11e02bbe2"
+  ami                         = "ami-06633e38eb0915f51"
   instance_type               = "m5a.large"
   subnet_id                   = aws_subnet.dev.id
   associate_public_ip_address = true
