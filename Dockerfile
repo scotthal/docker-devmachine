@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:rolling
 
 ARG USERNAME=scotthal
 ARG USER_UID=1100
@@ -6,7 +6,8 @@ ARG USER_GID=$USER_UID
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update; \
+RUN /usr/bin/yes | unminimize; \
+  apt-get update; \
   apt-get -y install locales less dialog apt-utils man-db bc guile-3.0 zsh fish zip unzip sudo tmux bat vim emacs-nox git iproute2 procps lsb-release libnss3-tools curl httpie jq sqlite3; \
   apt-get -y install build-essential autoconf automake cmake m4 bison flex gettext; \
   apt-get -y install libssl-dev libcurl4-openssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev libelf-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl; \
