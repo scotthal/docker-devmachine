@@ -51,44 +51,46 @@ mkdir /tmp/helm-unz; \
   install -o $USERNAME -g $USERNAME /tmp/skaffold /home/$USERNAME/bin/skaffold; \
   rm -f /tmp/skaffold
 
-curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zip > /tmp/Roboto_Mono.zip; \
-  su $USERNAME -lc "\
-    mkdir .fonts; \
-    mkdir roboto-unz; \
-    cd roboto-unz; \
-    unzip /tmp/Roboto_Mono.zip; \
-    cp static/RobotoMono-Regular.ttf ../.fonts; \
-    cp static/RobotoMono-Medium.ttf ../.fonts; \
-    cp static/RobotoMono-SemiBold.ttf ../.fonts; \
-    cp static/RobotoMono-Bold.ttf ../.fonts; \
-    cd ..; \
-    rm -rf roboto-unz \
-  "
+if [ "$1" != "nogui" ]
+then
+  curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zip > /tmp/Roboto_Mono.zip; \
+    su $USERNAME -lc "\
+      mkdir .fonts; \
+      mkdir roboto-unz; \
+      cd roboto-unz; \
+      unzip /tmp/Roboto_Mono.zip; \
+      cp static/RobotoMono-Regular.ttf ../.fonts; \
+      cp static/RobotoMono-Medium.ttf ../.fonts; \
+      cp static/RobotoMono-SemiBold.ttf ../.fonts; \
+      cp static/RobotoMono-Bold.ttf ../.fonts; \
+      cd ..; \
+      rm -rf roboto-unz \
+    "
 
-rm -f /tmp/Roboto_Mono.zip
+  rm -f /tmp/Roboto_Mono.zip
 
-apt-get -y install lightdm; \
-  apt-get -y install xubuntu-desktop xscreensaver fonts-roboto fonts-croscore fonts-noto flatpak; \
-  apt-get -y remove blueman; \
-  systemctl stop lightdm.service; \
-  systemctl disable lightdm.service; \
-  systemctl stop gdm.service; \
-  systemctl disable gdm.service; \
-  update-alternatives --set x-terminal-emulator /usr/bin/xfce4-terminal.wrapper
+  apt-get -y install lightdm; \
+    apt-get -y install xubuntu-desktop xscreensaver fonts-roboto fonts-croscore fonts-noto flatpak; \
+    apt-get -y remove blueman; \
+    systemctl stop lightdm.service; \
+    systemctl disable lightdm.service; \
+    systemctl stop gdm.service; \
+    systemctl disable gdm.service; \
+    update-alternatives --set x-terminal-emulator /usr/bin/xfce4-terminal.wrapper
 
-curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb > /tmp/crd.deb; \
-  dpkg -i /tmp/crd.deb; \
-  apt-get -y install -f; \
-  rm -f /tmp/crd.deb; \
-  echo 'dbus-launch startxfce4' > /etc/chrome-remote-desktop-session; \
-  curl -L https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /tmp/chrome.deb; \
-  dpkg -i /tmp/chrome.deb; \
-  apt-get -y install -f; \
-  rm -f /tmp/chrome.deb; \
-  update-alternatives --set x-www-browser /usr/bin/google-chrome-stable; \
-  curl -L 'https://download.mozilla.org/?product=firefox-devedition-latest&os=linux64&lang=en-US' | bzip2 -dc | tar -C /opt -xf -
+  curl -L https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb > /tmp/crd.deb; \
+    dpkg -i /tmp/crd.deb; \
+    apt-get -y install -f; \
+    rm -f /tmp/crd.deb; \
+    echo 'dbus-launch startxfce4' > /etc/chrome-remote-desktop-session; \
+    curl -L https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /tmp/chrome.deb; \
+    dpkg -i /tmp/chrome.deb; \
+    apt-get -y install -f; \
+    rm -f /tmp/chrome.deb; \
+    update-alternatives --set x-www-browser /usr/bin/google-chrome-stable; \
+    curl -L 'https://download.mozilla.org/?product=firefox-devedition-latest&os=linux64&lang=en-US' | bzip2 -dc | tar -C /opt -xf -
 
-cat <<EOF > /usr/share/applications/firefox.desktop
+  cat <<EOF > /usr/share/applications/firefox.desktop
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -98,30 +100,31 @@ Icon=/opt/firefox/browser/chrome/icons/default/default64.png
 Categories=Network
 EOF
 
-snap install code --classic; \
-  snap install intellij-idea-community --classic
-  
-su $USERNAME -lc "\
-    code --install-extension dbaeumer.vscode-eslint; \
-    code --install-extension editorconfig.editorconfig; \
-    code --install-extension esbenp.prettier-vscode; \
-    code --install-extension github.github-vscode-theme; \
-    code --install-extension hashicorp.terraform; \
-    code --install-extension jakebecker.elixir-ls; \
-    code --install-extension ms-azuretools.vscode-docker; \
-    code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools; \
-    code --install-extension ms-python.python; \
-    code --install-extension ms-vscode.cpptools; \
-    code --install-extension ms-vscode.powershell; \
-    code --install-extension ms-vscode-remote.vscode-remote-extensionpack; \
-    code --install-extension pivotal.vscode-boot-dev-pack; \
-    code --install-extension rebornix.ruby; \
-    code --install-extension rust-lang.rust-analyzer; \
-    code --install-extension visualstudioexptteam.vscodeintellicode; \
-    code --install-extension vscjava.vscode-java-pack
-  "
+  snap install code --classic; \
+    snap install intellij-idea-community --classic
+    
+  su $USERNAME -lc "\
+      code --install-extension dbaeumer.vscode-eslint; \
+      code --install-extension editorconfig.editorconfig; \
+      code --install-extension esbenp.prettier-vscode; \
+      code --install-extension github.github-vscode-theme; \
+      code --install-extension hashicorp.terraform; \
+      code --install-extension jakebecker.elixir-ls; \
+      code --install-extension ms-azuretools.vscode-docker; \
+      code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools; \
+      code --install-extension ms-python.python; \
+      code --install-extension ms-vscode.cpptools; \
+      code --install-extension ms-vscode.powershell; \
+      code --install-extension ms-vscode-remote.vscode-remote-extensionpack; \
+      code --install-extension pivotal.vscode-boot-dev-pack; \
+      code --install-extension rebornix.ruby; \
+      code --install-extension rust-lang.rust-analyzer; \
+      code --install-extension visualstudioexptteam.vscodeintellicode; \
+      code --install-extension vscjava.vscode-java-pack
+    "
 
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+fi
 
 apt-get -y remove exim4 postfix; \
   apt-get autoremove -y ; \
