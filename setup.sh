@@ -126,7 +126,7 @@ EOF
   flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 fi
 
-apt-get -y remove exim4 postfix; \
+apt-get -y remove exim4-base postfix; \
   apt-get autoremove -y ; \
   apt-get clean -y
 
