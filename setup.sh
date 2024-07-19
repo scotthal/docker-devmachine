@@ -5,11 +5,6 @@ export USER_UID=1100
 export USER_GID=$USER_UID
 export DEBIAN_FRONTEND='noninteractive'
 
-groupadd --gid $USER_GID $USERNAME
-useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME
-echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME; \
-  chmod 440 /etc/sudoers.d/$USERNAME;
-
 apt-get update; \
   apt-get -y dist-upgrade; \
   apt-get -y install sudo locales less dialog apt-utils man-db bc guile-3.0 zsh fish zip unzip zstd sudo tmux bat parallel vim emacs-nox git iproute2 procps lsb-release libnss3-tools curl httpie jq sqlite3 docker.io docker-compose; \
@@ -19,6 +14,11 @@ apt-get update; \
   echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen; \
   locale-gen; \
   update-locale LANG=en_US.UTF-8
+
+groupadd --gid $USER_GID $USERNAME
+useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME
+echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME; \
+  chmod 440 /etc/sudoers.d/$USERNAME;
 
 su $USERNAME -lc "\
   git clone https://github.com/scotthal/homedir; \
