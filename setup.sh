@@ -51,11 +51,6 @@ mkdir /tmp/helm-unz; \
   install -o $USERNAME -g $USERNAME /tmp/skaffold /home/$USERNAME/bin/skaffold; \
   rm -f /tmp/skaffold
 
-snap install aws-cli --classic; \
-  snap install google-cloud-sdk --classic; \
-  snap install powershell --classic
-
-
 curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zip > /tmp/Roboto_Mono.zip; \
   su $USERNAME -lc "\
     mkdir .fonts; \
