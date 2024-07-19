@@ -123,7 +123,8 @@ su $USERNAME -lc "\
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-apt-get autoremove -y ;\
+apt-get -y remove exim4 postfix; \
+  apt-get autoremove -y ; \
   apt-get clean -y
 
 touch /tmp/setup-done
