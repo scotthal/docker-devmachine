@@ -35,10 +35,10 @@ mkdir -p /home/$USERNAME/bin; \
   chmod 0755 /home/$USERNAME/bin
 
 mkdir /tmp/helm-unz; \
-  curl -L https://get.helm.sh/helm-v3.11.1-linux-amd64.tar.gz | gzip -dc | tar -C /tmp/helm-unz -xf -; \
+  curl -L https://get.helm.sh/helm-v3.14.0-linux-amd64.tar.gz | gzip -dc | tar -C /tmp/helm-unz -xf -; \
   install -o $USERNAME -g $USERNAME /tmp/helm-unz/linux-amd64/helm /home/$USERNAME/bin/helm; \
   rm -rf /tmp/helm-unz; \
-  curl -L https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64 > /tmp/kind; \
+  curl -L https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-amd64 > /tmp/kind; \
   install -o $USERNAME -g $USERNAME /tmp/kind /home/$USERNAME/bin/kind; \
   rm -f /tmp/kind; \
   curl -L https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 > /tmp/minikube; \
