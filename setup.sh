@@ -34,12 +34,7 @@ mkdir -p /home/$USERNAME/bin; \
   chown $USERNAME:$USERNAME /home/$USERNAME/bin; \
   chmod 0755 /home/$USERNAME/bin
 
-curl -L https://releases.hashicorp.com/terraform/1.5.5/terraform_1.5.5_linux_amd64.zip > /tmp/terraform.zip; \
-  mkdir /tmp/terraform-unz; \
-  unzip /tmp/terraform.zip -d /tmp/terraform-unz; \
-  install -o $USERNAME -g $USERNAME /tmp/terraform-unz/terraform /home/$USERNAME/bin/terraform; \
-  rm -rf /tmp/terraform.zip /tmp/terraform-unz; \
-  mkdir /tmp/helm-unz; \
+mkdir /tmp/helm-unz; \
   curl -L https://get.helm.sh/helm-v3.11.1-linux-amd64.tar.gz | gzip -dc | tar -C /tmp/helm-unz -xf -; \
   install -o $USERNAME -g $USERNAME /tmp/helm-unz/linux-amd64/helm /home/$USERNAME/bin/helm; \
   rm -rf /tmp/helm-unz; \
