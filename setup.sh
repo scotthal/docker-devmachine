@@ -51,7 +51,7 @@ mkdir /tmp/helm-unz; \
   install -o $USERNAME -g $USERNAME /tmp/skaffold /home/$USERNAME/bin/skaffold; \
   rm -f /tmp/skaffold
 
-if [ "$1" != "nogui" ]
+if [ "$1" != "nocloud" ]
 then
   curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zip > /tmp/Roboto_Mono.zip; \
     su $USERNAME -lc "\
