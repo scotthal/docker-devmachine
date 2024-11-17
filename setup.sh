@@ -53,22 +53,6 @@ mkdir /tmp/helm-unz; \
 
 if [ "$1" != "nocloud" ]
 then
-  curl -L https://storage.googleapis.com/scotthal-devmachine-public/Roboto_Mono.zip > /tmp/Roboto_Mono.zip; \
-    su $USERNAME -lc "\
-      mkdir .fonts; \
-      mkdir roboto-unz; \
-      cd roboto-unz; \
-      unzip /tmp/Roboto_Mono.zip; \
-      cp static/RobotoMono-Regular.ttf ../.fonts; \
-      cp static/RobotoMono-Medium.ttf ../.fonts; \
-      cp static/RobotoMono-SemiBold.ttf ../.fonts; \
-      cp static/RobotoMono-Bold.ttf ../.fonts; \
-      cd ..; \
-      rm -rf roboto-unz \
-    "
-
-  rm -f /tmp/Roboto_Mono.zip
-
   apt-get -y install lightdm; \
     apt-get -y install xubuntu-desktop xscreensaver fonts-roboto fonts-croscore fonts-noto flatpak; \
     apt-get -y remove blueman; \
@@ -88,42 +72,8 @@ then
     apt-get -y install -f; \
     rm -f /tmp/chrome.deb; \
     update-alternatives --set x-www-browser /usr/bin/google-chrome-stable; \
-    curl -L 'https://download.mozilla.org/?product=firefox-devedition-latest&os=linux64&lang=en-US' | bzip2 -dc | tar -C /opt -xf -
 
-  cat <<EOF > /usr/share/applications/firefox.desktop
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Firefox
-Exec=/opt/firefox/firefox
-Icon=/opt/firefox/browser/chrome/icons/default/default64.png
-Categories=Network
-EOF
-
-  snap install code --classic; \
     snap install intellij-idea-community --classic
-    
-  su $USERNAME -lc "\
-      code --install-extension dbaeumer.vscode-eslint; \
-      code --install-extension editorconfig.editorconfig; \
-      code --install-extension esbenp.prettier-vscode; \
-      code --install-extension github.github-vscode-theme; \
-      code --install-extension hashicorp.terraform; \
-      code --install-extension jakebecker.elixir-ls; \
-      code --install-extension ms-azuretools.vscode-docker; \
-      code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools; \
-      code --install-extension ms-python.python; \
-      code --install-extension ms-vscode.cpptools; \
-      code --install-extension ms-vscode.powershell; \
-      code --install-extension ms-vscode-remote.vscode-remote-extensionpack; \
-      code --install-extension pivotal.vscode-boot-dev-pack; \
-      code --install-extension rebornix.ruby; \
-      code --install-extension rust-lang.rust-analyzer; \
-      code --install-extension visualstudioexptteam.vscodeintellicode; \
-      code --install-extension vscjava.vscode-java-pack
-    "
-
-  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 fi
 
 apt-get -y remove exim4-base postfix; \
@@ -131,3 +81,4 @@ apt-get -y remove exim4-base postfix; \
   apt-get clean -y
 
 touch /tmp/setup-done
+
