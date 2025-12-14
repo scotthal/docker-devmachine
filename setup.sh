@@ -7,7 +7,7 @@ export DEBIAN_FRONTEND='noninteractive'
 
 apt-get update; \
   apt-get -y dist-upgrade; \
-  apt-get -y install sudo locales less dialog apt-utils man-db ripgrep tree bc guile-3.0 zsh fish zip unzip zstd sudo tmux bat parallel vim emacs-nox git iproute2 procps lsb-release libnss3-tools curl httpie jq sqlite3 docker.io docker-compose; \
+  apt-get -y install sudo locales less dialog apt-utils man-db ripgrep fzf tree bc guile-3.0 zsh fish zip unzip zstd sudo tmux bat parallel vim emacs-nox git iproute2 procps lsb-release libnss3-tools curl httpie jq sqlite3 docker.io docker-compose; \
   apt-get -y install docker-buildx; \
   apt-get -y install build-essential autoconf automake bubblewrap cmake ninja-build m4 bison flex gettext; \
   apt-get -y install libssl-dev libcurl4-openssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev libelf-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl; \
